@@ -1,13 +1,8 @@
-# Command to fetch docker tags 
+# Command to fetch docker tags  with Pagination
 NEXT_URL="https://hub.docker.com/v2/repositories/sivathavva/python-app/tags/"
 while [ "$NEXT_URL" != "null" ]; do
-    # Fetch the current page of results
   RESPONSE=$(curl -s "$NEXT_URL")
-  
-      # Extract and print tag names from the current page
   echo "$RESPONSE" | jq -r '.results[].name'
-  
-     # Update NEXT_URL to the next page's URL
   NEXT_URL=$(echo "$RESPONSE" | jq -r '.next')
 done
 
